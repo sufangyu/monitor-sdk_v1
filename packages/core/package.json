@@ -1,0 +1,15 @@
+{
+  "name": "@monitor/core",
+  "version": "1.0.0",
+  "description": "@monitor/core",
+  "type": "module",
+  "main": "dist/core.js",
+  "module": "dist/core.esm.js",
+  "types": "types/core.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
