@@ -5,14 +5,14 @@ const consola = require('consola')
 const { getArgv, getBuildTargets, binRun } = require('./utils');
 
 
-run();
+runRelease();
 
 
 /**
- * 入口运行函数
+ * 运行发布脚本
  *
  */
-function run() {
+function runRelease() {
   const argv = getArgv();
   // 构建对象. eg: npm run dev core browser => targets = ['core', 'browser']
   const targets = argv._;
@@ -47,7 +47,7 @@ function publishPackage(target) {
   const pkg = require(`${pkgDir}/package.json`);
   const version = pkg.version;
 
-  console.log('pkgDir: ', pkgDir, version);
+  // console.log('pkgDir: ', pkgDir, version);
   if (pkg.private) {
     return;
   }

@@ -1,38 +1,31 @@
 const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
-const execa = require('execa');
 const { getArgv, getBuildTargets, binRun } = require('./utils');
 
 
 // 是否构建类型
 let isBuildTypes = true;
-
 // 是否开发模式, 开启监听
 let isDevWatch = false;
 
-run();
+runBuild();
 
 
 /**
- * 入口运行函数
+ * 运行构建脚本
  *
  */
-function run() {
+function runBuild() {
   const argv = getArgv();
-  console.log('build.js: ', argv);
+  // console.log('build.js: ', argv);
   isBuildTypes = argv.types !== 'false'
   isDevWatch = argv.watch === 'true';
   // 构建对象. eg: npm run dev core browser => targets = ['core', 'browser']
   const targets = argv._;
   // 构建的包
   const packages = targets.length === 0 ? getBuildTargets() : targets;
-  buildPackage(packages);
-}
-
-
-function buildPackage(targets = []) {
-  runBuildPackages(targets, rollupBuild)
+  runBuildPackages(packages);
 }
 
 
@@ -45,7 +38,7 @@ function runBuildPackages(packages = [], iteratorFn) {
   // console.log('runBuildPackages:', packages);
   const buildQueue = [];
   for (const item of packages) {
-    const p = Promise.resolve().then(() => iteratorFn(item));
+    const p = Promise.resolve().then(() => rollupBuild(item));
     buildQueue.push(p);
   }
 
