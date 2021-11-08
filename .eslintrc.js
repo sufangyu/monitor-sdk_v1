@@ -3,7 +3,7 @@ module.exports = {
   "extends": [
     "eslint:recommended",
     "airbnb-base",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": ["@typescript-eslint", "html"],
   "env": {
@@ -13,7 +13,7 @@ module.exports = {
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": 2015,
+    "ecmaVersion": "latest",
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
@@ -21,14 +21,20 @@ module.exports = {
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+      },
     }
   },
   "rules": {
     "no-console": "off",
     "linebreak-style": "off",
+    "no-shadow": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+    "class-methods-use-this": "off",
     "import/prefer-default-export": "off",
+    // Fix lerna import package has error: Unable to resolve path to module "xxx"     import/no-unresolved
+    "import/no-unresolved": ["error", { "ignore": ["@monitor/core", "@monitor/shared"] }],
+    "import/no-extraneous-dependencies": "off",
     "import/extensions": ["error", {
         ".ts": "never",
         ".tsx": "never",
@@ -36,9 +42,7 @@ module.exports = {
         ".jsx": "never",
       },
     ],
-    "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
-
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/ban-types": "off",
