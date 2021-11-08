@@ -1,3 +1,4 @@
+import json from '@rollup/plugin-json';
 import typescript from 'rollup-plugin-typescript2';
 import { eslint } from "rollup-plugin-eslint";
 import cleaner from 'rollup-plugin-cleaner';
@@ -38,6 +39,7 @@ const commonConfig = {
     exports: 'auto',
   },
   plugins: [
+    json(),
     eslint({
       fix: true,
       exclude: 'node_modules/**'
