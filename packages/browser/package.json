@@ -5,13 +5,13 @@
   "main": "dist/browser.js",
   "module": "dist/browser.esm.js",
   "types": "dist/browser.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@monitor/core": "^1.0.0"
+    "@monitor/core": "^1.0.0",
+    "@monitor/types": "^1.0.0",
+    "@monitor/utils": "^1.0.0"
   }
 }

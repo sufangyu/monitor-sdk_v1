@@ -7,6 +7,7 @@ npm-error.log
 # test
 coverage
 .idea
+.zip
 
 # api-extractor
 temp

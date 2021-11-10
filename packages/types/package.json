@@ -1,0 +1,13 @@
+{
+  "name": "@monitor/types",
+  "version": "1.0.0",
+  "description": "@monitor/types",
+  "type": "module",
+  "main": "dist/types.js",
+  "module": "dist/types.esm.js",
+  "types": "types/types.d.ts",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

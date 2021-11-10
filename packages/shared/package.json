@@ -1,0 +1,11 @@
+{
+  "name": "@monitor/shared",
+  "version": "1.0.0",
+  "description": "@monitor/shared",
+  "type": "module",
+  "main": "dist/shared.js",
+  "module": "dist/shared.esm.js",
+  "types": "types/shared.d.ts",
+  "author": "",
+  "license": "ISC"
+}

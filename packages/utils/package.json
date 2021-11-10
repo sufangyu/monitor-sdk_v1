@@ -1,0 +1,13 @@
+{
+  "name": "@monitor/utils",
+  "version": "1.0.0",
+  "description": "@monitor/utils",
+  "type": "module",
+  "main": "dist/utils.js",
+  "module": "dist/utils.esm.js",
+  "types": "types/utils.d.ts",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,5 +1,10 @@
-import '@monitor/core';
+import { BrowserClient } from './browser-client';
+import { BrowserOptions } from './types';
 
-export const NAME = '张三疯';
+function createBrowserInstance(options: BrowserOptions) {
+  const browserClient = new BrowserClient(options);
+  return browserClient;
+}
 
-console.log('This is Browser Workspace !!');
+const init = createBrowserInstance;
+export { createBrowserInstance, init, BrowserClient };
