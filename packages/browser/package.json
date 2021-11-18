@@ -12,6 +12,7 @@
   "dependencies": {
     "@monitor/core": "^1.0.0",
     "@monitor/types": "^1.0.0",
-    "@monitor/utils": "^1.0.0"
+    "@monitor/utils": "^1.0.0",
+    "@monitor/shared": "^1.0.0"
   }
 }

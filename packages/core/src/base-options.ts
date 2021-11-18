@@ -17,8 +17,9 @@ export const baseOptions: Partial<BaseOptions> = {
       // 'https://cnodejs.org/api/v1/user/sufangyu',
     ],
   },
+  silentBehavior: false,
   behavior: {
-    console: ['log', 'error'],
+    console: ['warn', 'error'],
     click: true,
   },
   maxLength: 1000,

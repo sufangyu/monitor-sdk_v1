@@ -1,10 +1,10 @@
 /* eslint-disable no-use-before-define, no-unused-expressions */
 import { report } from '@monitor/core';
-import { ErrorMsg } from '@monitor/types';
+import { KIND_MAP, ERROR_TYPE_MAP, ErrorMsg } from '@monitor/types';
 import { getCommonMsg } from '../utils/message';
 
 /**
- * 处理语法、资源、异步错误
+ * 监控 语法、资源、异步错误
  *
  * @export
  * @param {*} error
@@ -38,8 +38,8 @@ function handleCaughtError(error: any): void {
 
   const msg: ErrorMsg = {
     ...commonMsg,
-    kind: 'error',
-    errorType: 'caughterror',
+    kind: KIND_MAP.ERROR,
+    errorType: ERROR_TYPE_MAP.CAUGHT_ERROR,
     cate: type, // 类别
     msg: message?.substring(0, 1e3), // 信息
     detail: stack?.substring(0, 1e3), // 错误栈
@@ -62,8 +62,8 @@ function handleResourceError(error: any): void {
   const { target } = error;
   const msg: ErrorMsg = {
     ...commonMsg,
-    kind: 'error',
-    errorType: 'resource',
+    kind: KIND_MAP.ERROR,
+    errorType: ERROR_TYPE_MAP.RESOURCE,
     msg: target.outerHTML,
     file: target.src || target.href,
     tagName: target.tagName,
@@ -79,12 +79,12 @@ function handleResourceError(error: any): void {
  * @param {*} error
  */
 function handlePromiseError(error: any): void {
-  console.log('handlePromiseError error', error);
+  // console.log('handlePromiseError error', error);
   const commonMsg = getCommonMsg();
   const msg: ErrorMsg = {
     ...commonMsg,
-    kind: 'error',
-    errorType: 'promise',
+    kind: KIND_MAP.ERROR,
+    errorType: ERROR_TYPE_MAP.PROMISE,
     msg: typeof error.reason === 'string' ? error?.reason : error?.reason?.message,
   };
 

@@ -13,16 +13,17 @@ export interface BaseOptions {
   environment: string;
   /** 脚本延迟上报时间 */
   duration: number;
-  /** 是否上报行为 */
-  isBehavior: boolean;
   /** 忽略配置 */
   ignore: {
     ignoreErrors: string[];
     ignoreUrls: string[];
     ignoreApis: string[];
   };
+  /** 上报行为 */
+  silentBehavior: boolean;
+  /** 行为动作 */
   behavior: {
-    console: string[]; // "debug"|"info"|"warn"|"log"|"error"
+    console: string[]; // 'debug' | 'info' | 'warn' | 'log' | 'error'
     click: boolean;
   },
   /** 最长上报数据长度 */

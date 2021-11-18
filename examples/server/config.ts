@@ -14,3 +14,12 @@ export const FILE_PATHS = {
 
   '/browserDist': browserDistFilePath,
 };
+
+
+export const SERVER_URLS = {
+  normalGet: '/normal',
+  exceptionGet: '/exception',
+  normalPost: '/normal/post',
+  exceptionPost: '/exception/post',
+  errorsUpload: '/errors/upload'
+}

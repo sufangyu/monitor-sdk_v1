@@ -1,4 +1,4 @@
-import { CommonMsg } from '@monitor/types';
+import { KIND_MAP, CommonMsg } from '@monitor/types';
 import { getUID, getScreen, getLang } from '@monitor/utils';
 import { BrowserConfig } from '../config';
 
@@ -10,7 +10,7 @@ import { BrowserConfig } from '../config';
 export function getCommonMsg(): CommonMsg {
   const u = (navigator as any).connection;
   return {
-    kind: '',
+    kind: KIND_MAP.UNKNOWN,
     page: '', // TODO:
     times: 1,
     version: '0.0.1', // TODO:
@@ -21,7 +21,7 @@ export function getCommonMsg(): CommonMsg {
     sid: '', // TODO:
     screenSize: `${window.screen.width}x${window.screen.height}`,
     viewSize: getScreen(),
-    network: u ? u.effectiveType : '',
+    network: u ? (u.type || u.effectiveType) : '',
     language: getLang(),
     _sdkVersion: BrowserConfig.version!,
     origin: window.location.href,

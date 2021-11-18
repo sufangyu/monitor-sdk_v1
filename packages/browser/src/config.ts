@@ -5,13 +5,14 @@ import { BrowserOptions } from './types';
 /** 浏览器端的基础配置 */
 export let BrowserConfig: Partial<BrowserOptions> = {
   silentXhr: false,
-  silentFetch: false,
   silentConsole: false,
   silentDom: false,
   silentHistory: false,
   silentHashchange: false,
   silentError: false,
-  silentUnhandledrejection: false,
+  silentRecord: false,
+  silentPerformance: false,
+  silentResource: false,
 };
 
 export function setConfig(options: BrowserOptions) {

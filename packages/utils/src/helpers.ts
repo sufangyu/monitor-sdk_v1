@@ -1,3 +1,8 @@
+/**
+ * 随机 UUID
+ *
+ * @returns
+ */
 function generateUID() {
   // eslint-disable-next-line no-bitwise
   let firstPart: number | string = (Math.random() * 46656) | 0;
