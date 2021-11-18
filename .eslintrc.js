@@ -29,8 +29,10 @@ module.exports = {
     "no-console": "off",
     "linebreak-style": "off",
     "no-shadow": "off",
+    "no-underscore-dangle": "off",
     "no-unused-expressions": ["error", { "allowShortCircuit": true }],
     "class-methods-use-this": "off",
+    "func-names": "off",
     "import/prefer-default-export": "off",
     // Fix lerna import package has error: Unable to resolve path to module "xxx"     import/no-unresolved
     "import/no-unresolved": ["error", { "ignore": ["@monitor/core", "@monitor/shared", "@monitor/utils'"] }],
