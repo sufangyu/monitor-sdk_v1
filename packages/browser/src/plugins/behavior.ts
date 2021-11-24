@@ -1,7 +1,8 @@
 import { report } from '@monitor/core';
 import { SDK_NAME } from '@monitor/shared';
 import {
-  Behavior, BehaviorMsg, EventBehavior, TrackBehavior, KIND_MAP, BEHAVIOR_TYPE_MAP,
+  Behavior, BehaviorMsg, EventBehavior, TrackBehavior, NavigationBehavior,
+  KIND_MAP, BEHAVIOR_TYPE_MAP,
 } from '@monitor/types';
 import { getCommonMsg } from '../utils/message';
 
@@ -98,9 +99,16 @@ function getElementPath(element: HTMLElement): string {
 export function handleClick(event: Event): void {
   const target = (event.target || '<UNKNOWN>') as HTMLElement;
 
-  // 过滤输入框点击 或者 带自定义埋点标识 (data-track)
-  const { track } = target.dataset;
-  if (['INPUT', 'TEXTAREA'].includes(target.nodeName) || track !== undefined) {
+  // 过滤输入框点击
+  if (['INPUT', 'TEXTAREA'].includes(target.nodeName)) {
+    return;
+  }
+
+  // 通过自定义埋点标识 (data-track, data-track-params)的方式通知
+  const { track, trackParams = '{}' } = target.dataset;
+  if (track !== undefined) {
+    // eslint-disable-next-line no-use-before-define
+    handleTrack(track, JSON.parse(trackParams));
     return;
   }
 
@@ -149,6 +157,8 @@ export function handleBlur(event: Event): void {
  * ```
  * 需要给标签设置自定义属性 data-track, 才不会触发全埋点事件. 例如:
  * <button data-track onclick="handleTrack()">自定义埋点</button>
+ *
+ * <button data-track="custom_event" data-track-params="{name: 'zsf', age: 18}">自定义埋点(非事件)</button>
  * ```
  *
  * @export
@@ -167,5 +177,24 @@ export function handleTrack(type: string, params: { [key: string]: any } = {}) {
       params,
     },
   };
+  handleBehavior(behavior);
+}
+
+/**
+ * 页面导航操作
+ *
+ * @export
+ * @param {string} page 当前页面
+ */
+export function handleNavigation(page: string): void {
+  const commonMsg = getCommonMsg();
+  const behavior: NavigationBehavior = {
+    type: BEHAVIOR_TYPE_MAP.NAVIGATION,
+    data: {
+      from: commonMsg.page,
+      to: page,
+    },
+  };
+
   handleBehavior(behavior);
 }

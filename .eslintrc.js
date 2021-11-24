@@ -35,7 +35,7 @@ module.exports = {
     "func-names": "off",
     "import/prefer-default-export": "off",
     // Fix lerna import package has error: Unable to resolve path to module "xxx"     import/no-unresolved
-    "import/no-unresolved": ["error", { "ignore": ["@monitor/core", "@monitor/shared", "@monitor/utils'"] }],
+    "import/no-unresolved": ["error", { "ignore": ["@monitor/core", "@monitor/shared", "@monitor/utils"] }],
     "import/no-extraneous-dependencies": "off",
     "import/extensions": ["error", {
         ".ts": "never",

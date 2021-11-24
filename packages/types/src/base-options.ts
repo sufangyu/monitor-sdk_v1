@@ -19,8 +19,8 @@ export interface BaseOptions {
     ignoreUrls: string[];
     ignoreApis: string[];
   };
-  /** 上报行为 */
-  silentBehavior: boolean;
+  /** 是否上报行为 */
+  enableBehavior: boolean;
   /** 行为动作 */
   behavior: {
     console: string[]; // 'debug' | 'info' | 'warn' | 'log' | 'error'

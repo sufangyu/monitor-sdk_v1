@@ -3,7 +3,7 @@
  *
  * @returns
  */
-function generateUID() {
+export function generateUID() {
   // eslint-disable-next-line no-bitwise
   let firstPart: number | string = (Math.random() * 46656) | 0;
   // eslint-disable-next-line no-bitwise

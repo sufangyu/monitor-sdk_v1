@@ -8,8 +8,9 @@ export enum KIND_MAP {
   RESOURCE ='RESOURCE',
   /** 接口指标 */
   API ='API',
-  /** 访问指标 */
+  /** 页面访问指标 */
   PV ='PV',
+  /** 页面健康状态指标 */
   HEALTH ='HEALTH',
   /** 性能指标 */
   PERFORMANCE ='PERFORMANCE',
@@ -192,11 +193,14 @@ export interface PerformanceMsg extends CommonMsg {
 
 /**
  * 行为上报
+ *
+ * @export
+ * @interface BehaviorMsg
+ * @extends {CommonMsg}
  */
 export interface BehaviorMsg extends CommonMsg{
   behavior: Behavior;
 }
-
 
 
 /**
@@ -212,4 +216,26 @@ export interface ResourceMsg extends CommonMsg {
   load: number;
   /** 加载的资源 */
   resources?: PerformanceEntry[];
+}
+
+
+/**
+ * PV 上报
+ *
+ * @export
+ * @interface PageViewMsg
+ * @extends {CommonMsg}
+ */
+
+export interface PageViewMsg extends CommonMsg{
+  /** title */
+  title: string;
+  /** 页面 URL */
+  href: string;
+  /** 来源 */
+  referrer: string;
+  /** dpr */
+  dpr: number;
+  /** document 编码 */
+  charset: string;
 }

@@ -3,7 +3,8 @@ import { hackConsole } from '@monitor/core';
 import { BrowserConfig, setConfig } from './config';
 import {
   handleError, handlePerformance, handleRequest, handleResource,
-  handleBehavior, handleClick, handleBlur, handleTrack,
+  handleBehavior, handleClick, handleBlur, handleTrack, handlePage,
+  hackState, handleHashChange, handleHistoryStateChange,
 } from './plugins';
 import { BrowserOptions } from './types';
 
@@ -21,13 +22,13 @@ export class BrowserClient {
   run(): void {
     const {
       token,
-      silentError,
-      silentXhr,
-      silentRecord,
-      silentResource,
-      silentPerformance,
-      silentBehavior,
-      // behavior,
+      enableError,
+      enableXHR,
+      enableRecord,
+      enableResource,
+      enablePerformance,
+      enableBehavior,
+      enableSPA,
     } = BrowserConfig;
 
     if (!token) {
@@ -35,18 +36,48 @@ export class BrowserClient {
       return;
     }
 
-    !silentBehavior && this.addListenBehavior();
-    !silentError && this.addListenJS();
-    !silentXhr && this.addListenNetworkRequest();
-    !silentRecord && this.addListenRecordWeb();
-    !silentPerformance && this.addListenPerformance();
-    !silentResource && this.addListenResource();
+    // 处理页面相关
+    const { hash, pathname } = window.location;
+    // TODO: SPA Application
+    const page = enableSPA ? hash.toLowerCase() : pathname.toLowerCase();
+    handlePage(page, true);
+
+    enableSPA && this.addListenRouterChange();
+    enableBehavior && this.addListenBehavior();
+    enableError && this.addListenJS();
+    enableXHR && this.addListenNetworkRequest();
+    enableRecord && this.addListenRecordWeb();
+    enablePerformance && this.addListenPerformance();
+    enableResource && this.addListenResource();
 
     // 绑定全局变量
     window.MONITOR = this;
     window.MONITOR.track = handleTrack;
 
     this.addListenUnload();
+  }
+
+  /**
+   * 监听 路由变化
+   *
+   * @memberof BrowserClient
+   */
+  private addListenRouterChange(): void {
+    hackState('pushState');
+    hackState('replaceState');
+
+    window.addEventListener('hashchange', handleHashChange, true);
+    window.addEventListener('historystatechange', handleHistoryStateChange, true);
+  }
+
+  /**
+   * 移除 路由变化监听
+   *
+   * @memberof BrowserClient
+   */
+  private removeListenRouterChange(): void {
+    window.removeEventListener('hashchange', handleHashChange, true);
+    window.removeEventListener('historystatechange', handleHistoryStateChange, true);
   }
 
   /**
@@ -155,8 +186,8 @@ export class BrowserClient {
    * @memberof Monitor
    */
   private destroy(): void {
-    !BrowserConfig.silentError && this.removeListenJS();
-    !BrowserConfig.behavior!.click && this.removeListenClick();
-    // Config.isResource && this.removeListenResource();
+    BrowserConfig.enableError && this.removeListenJS();
+    BrowserConfig.behavior!.click && this.removeListenClick();
+    BrowserConfig.enableSPA && this.removeListenRouterChange();
   }
 }

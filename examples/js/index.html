@@ -25,7 +25,8 @@
       <button id="codeErr" onclick="codeError()">代码错误</button>
       <button id="promiseError" onclick="promiseError()">promiseError</button>
       <button id="nativelogUpload" onclick="onClickLog()">原生log上报</button>
-      <button id="trackUpload" data-track onclick="onClickTrack()">自定义埋点上报</button>
+      <button id="trackUpload" data-track="custom_event" onclick="onClickTrack()">自定义埋点上报</button>
+      <button data-track="custom_event" data-track-params='{"name": "张三疯", "age": 18}'>自定义埋点(非事件)</button>
     </div>
     <div>
       <button id="normalReq" onclick="onClickXhrNormal()">xhr正常请求</button>
@@ -40,6 +41,12 @@
     <div>
 
     <div>
+      <a href='#a'>hash</a>
+      <button onclick="onClickPushState('./about.html')">跳About页面</button>
+    <div>
+
+    <div>
+      <a href="./about.html">跳到原生-About页面</a>
       <a href="/Vue/index.html">跳到Vue页面</a>
       <a href="/React/index.html">跳到React页面</a>
       <a href="/Vue3/index.html">跳到Vue3页面</a>
@@ -136,6 +143,10 @@
             console.log(xhr.responseText)
           }
         }
+      }
+
+      function onClickPushState(path) {
+        history.pushState(null, null, path);
       }
     </script>
   </body>

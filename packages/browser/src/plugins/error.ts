@@ -1,6 +1,8 @@
 /* eslint-disable no-use-before-define, no-unused-expressions */
-import { report } from '@monitor/core';
-import { KIND_MAP, ERROR_TYPE_MAP, ErrorMsg } from '@monitor/types';
+import { report, setGlobalHealth } from '@monitor/core';
+import {
+  KIND_MAP, ERROR_TYPE_MAP, HEALTH_TYPE_MAP, ErrorMsg,
+} from '@monitor/types';
 import { getCommonMsg } from '../utils/message';
 
 /**
@@ -22,6 +24,8 @@ export function handleError(error: { type: string; }): void {
       // break;
     default:
   }
+
+  setGlobalHealth(HEALTH_TYPE_MAP.ERROR);
 }
 
 /**

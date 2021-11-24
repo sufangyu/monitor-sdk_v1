@@ -14,10 +14,9 @@ export const baseOptions: Partial<BaseOptions> = {
       '/api/v1/report/web',
       'livereload.js?snipver=1',
       '/sockjs-node/info',
-      // 'https://cnodejs.org/api/v1/user/sufangyu',
     ],
   },
-  silentBehavior: false,
+  enableBehavior: false,
   behavior: {
     console: ['warn', 'error'],
     click: true,

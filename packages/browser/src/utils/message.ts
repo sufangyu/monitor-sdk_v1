@@ -1,6 +1,16 @@
+import { GLOBAL_VAL } from '@monitor/core';
 import { KIND_MAP, CommonMsg } from '@monitor/types';
 import { getUID, getScreen, getLang } from '@monitor/utils';
 import { BrowserConfig } from '../config';
+
+/**
+ * 获取页面路径
+ *
+ * @returns {string}
+ */
+function getPage(): string {
+  return GLOBAL_VAL.page || window.location.pathname.toLowerCase();
+}
 
 /**
  * 获取公共信息
@@ -11,7 +21,7 @@ export function getCommonMsg(): CommonMsg {
   const u = (navigator as any).connection;
   return {
     kind: KIND_MAP.UNKNOWN,
-    page: '', // TODO:
+    page: getPage(),
     times: 1,
     version: '0.0.1', // TODO:
     token: BrowserConfig.token!,

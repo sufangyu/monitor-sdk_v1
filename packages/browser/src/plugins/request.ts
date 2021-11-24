@@ -1,7 +1,9 @@
 /* eslint-disable no-use-before-define */
-import { report } from '@monitor/core';
+import { report, setGlobalHealth } from '@monitor/core';
 import { SDK_NAME } from '@monitor/shared';
-import { KIND_MAP, ApiMsg, RequestBaseInfo } from '@monitor/types';
+import {
+  KIND_MAP, ApiMsg, RequestBaseInfo, HEALTH_TYPE_MAP,
+} from '@monitor/types';
 import { BrowserConfig } from '../config';
 import { getCommonMsg } from '../utils/message';
 
@@ -38,29 +40,30 @@ export function handleApi(
   requestInfo: RequestBaseInfo = {} as RequestBaseInfo,
 ): void {
   if (!url) {
-    console.warn('request api is null');
-  } else {
-    // TODO: 设置健康状态
-    // setGlobalHealth('api', success);
+    console.warn(`[${SDK_NAME}]: Empty request url!`);
+    return;
+  }
 
-    const commonMsg = getCommonMsg();
-    const apiMsg: ApiMsg = {
-      ...commonMsg,
-      kind: KIND_MAP.API,
-      begin,
-      url,
-      success,
-      delay,
-      status,
-      msg,
-      requestInfo,
-    };
+  // 当前页面的API健康状态
+  setGlobalHealth(HEALTH_TYPE_MAP.API, success);
 
-    // 过滤忽略的 API URL
-    const include = BrowserConfig.ignore!.ignoreApis.findIndex((item) => item === url);
-    if (include === -1) {
-      report(apiMsg);
-    }
+  const commonMsg = getCommonMsg();
+  const apiMsg: ApiMsg = {
+    ...commonMsg,
+    kind: KIND_MAP.API,
+    begin,
+    url,
+    success,
+    delay,
+    status,
+    msg,
+    requestInfo,
+  };
+
+  // 过滤忽略的 API URL
+  const include = BrowserConfig.ignore!.ignoreApis.findIndex((item) => item === url);
+  if (include === -1) {
+    report(apiMsg);
   }
 }
 
